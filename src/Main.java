@@ -8,29 +8,38 @@ public class Main {
         Product product3 = new Product(102, "Ноутбук", 90000, "Электроника");
         Product product4 = new Product(103, null, 1000, null);
         Product product5 = new Product(103, "Без категории", 2000, null);
-
-        Product[] products = {
-                product1, product2, product3, product4, product5
-        };
+        Product product6 = new Product(101, "Смартфон", 50000, "Телефоны");
 
         System.out.println("Товары:");
-        for (Product product : products) {
-            System.out.println(product);
-        }
+        System.out.println(product1);
+        System.out.println(product2);
+        System.out.println(product3);
+        System.out.println(product4);
+        System.out.println(product5);
+        System.out.println(product6);
 
-        System.out.println("\nПопарное сравнение товаров:");
-        for (int i = 0; i < products.length; i++) {
-            for (int j = i + 1; j < products.length; j++) {
-                System.out.println(
-                        "Товар " + (i + 1) + " и товар " + (j + 1)
-                                + ": " + products[i].equals(products[j])
-                );
-            }
-        }
+        System.out.println("\nСравнение товаров:");
 
-        System.out.println("Товар равен самому себе: " + product1.equals(product1));
-        System.out.println("Товар равен null: " + product1.equals(null));
-        System.out.println("Товар равен строке: " + product1.equals("Смартфон"));
+        System.out.println("product1.equals(product2): "
+                + product1.equals(product2)); // true
+
+        System.out.println("product1.equals(product3): "
+                + product1.equals(product3)); // false: разные id
+
+        System.out.println("product4.equals(product5): "
+                + product4.equals(product5)); // true: категории null
+
+        System.out.println("product1.equals(product6): "
+                + product1.equals(product6)); // false: разные категории
+
+        System.out.println("product1.equals(product1): "
+                + product1.equals(product1)); // true
+
+        System.out.println("product1.equals(null): "
+                + product1.equals(null)); // false
+
+        System.out.println("product1.equals(\"Смартфон\"): "
+                + product1.equals("Смартфон")); // false
 
         Order order1 = new Order("Анна", new Product[]{product1, product3});
         Order order2 = new Order("Анна", new Product[]{product2, product3});
@@ -61,9 +70,12 @@ public class Main {
             }
         }
 
-        System.out.println("Заказ равен самому себе: " + order1.equals(order1));
-        System.out.println("Заказ равен null: " + order1.equals(null));
-        System.out.println("Заказ равен товару: " + order1.equals(product1));
+        System.out.println("Заказ равен самому себе: "
+                + order1.equals(order1));
+        System.out.println("Заказ равен null: "
+                + order1.equals(null));
+        System.out.println("Заказ равен товару: "
+                + order1.equals(product1));
     }
 }
 
@@ -93,11 +105,13 @@ class Product {
         if (this == object) {
             return true;
         }
+
         if (object == null || getClass() != object.getClass()) {
             return false;
         }
 
         Product product = (Product) object;
+
         return id == product.id
                 && Objects.equals(category, product.category);
     }
@@ -128,6 +142,7 @@ class Order {
         if (this == object) {
             return true;
         }
+
         if (object == null || getClass() != object.getClass()) {
             return false;
         }
@@ -141,9 +156,11 @@ class Order {
         if (basket == order.basket) {
             return true;
         }
+
         if (basket == null || order.basket == null) {
             return false;
         }
+
         if (basket.length != order.basket.length) {
             return false;
         }
@@ -170,6 +187,7 @@ class Order {
 
     @Override
     public int hashCode() {
-        return 31 * Objects.hashCode(customer) + Arrays.hashCode(basket);
+        return 31 * Objects.hashCode(customer)
+                + Arrays.hashCode(basket);
     }
 }
