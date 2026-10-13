@@ -3,79 +3,8 @@ import java.util.Objects;
 
 public class Main {
     public static void main(String[] args) {
-        Product product1 = new Product(101, "Смартфон", 50000, "Электроника");
-        Product product2 = new Product(101, "Другой смартфон", 60000, "Электроника");
-        Product product3 = new Product(102, "Ноутбук", 90000, "Электроника");
-        Product product4 = new Product(103, null, 1000, null);
-        Product product5 = new Product(103, "Без категории", 2000, null);
-        Product product6 = new Product(101, "Смартфон", 50000, "Телефоны");
-
-        System.out.println("Товары:");
-        System.out.println(product1);
-        System.out.println(product2);
-        System.out.println(product3);
-        System.out.println(product4);
-        System.out.println(product5);
-        System.out.println(product6);
-
-        System.out.println("\nСравнение товаров:");
-
-        System.out.println("product1.equals(product2): "
-                + product1.equals(product2)); // true
-
-        System.out.println("product1.equals(product3): "
-                + product1.equals(product3)); // false: разные id
-
-        System.out.println("product4.equals(product5): "
-                + product4.equals(product5)); // true: категории null
-
-        System.out.println("product1.equals(product6): "
-                + product1.equals(product6)); // false: разные категории
-
-        System.out.println("product1.equals(product1): "
-                + product1.equals(product1)); // true
-
-        System.out.println("product1.equals(null): "
-                + product1.equals(null)); // false
-
-        System.out.println("product1.equals(\"Смартфон\"): "
-                + product1.equals("Смартфон")); // false
-
-        Order order1 = new Order("Анна", new Product[]{product1, product3});
-        Order order2 = new Order("Анна", new Product[]{product2, product3});
-        Order order3 = new Order("Анна", new Product[]{product3, product1});
-        Order order4 = new Order("Иван", new Product[]{product1, product3});
-        Order order5 = new Order(null, new Product[]{product4, null});
-        Order order6 = new Order(null, new Product[]{product5, null});
-        Order order7 = new Order(null, null);
-        Order order8 = new Order(null, null);
-
-        Order[] orders = {
-                order1, order2, order3, order4,
-                order5, order6, order7, order8
-        };
-
-        System.out.println("\nЗаказы:");
-        for (Order order : orders) {
-            System.out.println(order);
-        }
-
-        System.out.println("\nПопарное сравнение заказов:");
-        for (int i = 0; i < orders.length; i++) {
-            for (int j = i + 1; j < orders.length; j++) {
-                System.out.println(
-                        "Заказ " + (i + 1) + " и заказ " + (j + 1)
-                                + ": " + orders[i].equals(orders[j])
-                );
-            }
-        }
-
-        System.out.println("Заказ равен самому себе: "
-                + order1.equals(order1));
-        System.out.println("Заказ равен null: "
-                + order1.equals(null));
-        System.out.println("Заказ равен товару: "
-                + order1.equals(product1));
+        Product.main(args);
+        Order.main(args);
     }
 }
 
@@ -119,6 +48,61 @@ class Product {
     @Override
     public int hashCode() {
         return Objects.hash(id, category);
+    }
+
+    public static void main(String[] args) {
+        Product product1 = new Product(
+                101, "Смартфон", 50000, "Электроника");
+        Product product2 = new Product(
+                101, "Другой смартфон", 60000, "Электроника");
+        Product product3 = new Product(
+                102, "Ноутбук", 90000, "Электроника");
+        Product product4 = new Product(
+                101, "Смартфон", 50000, "Телефоны");
+        Product product5 = new Product(
+                103, null, 1000, null);
+        Product product6 = new Product(
+                103, "Без категории", 2000, null);
+
+        System.out.println("Тестирование класса Product:");
+        System.out.println(product1);
+        System.out.println(product2);
+        System.out.println(product3);
+        System.out.println(product4);
+        System.out.println(product5);
+        System.out.println(product6);
+
+        // Название и цена различаются, но id и category совпадают.
+        System.out.println("Товары 1 и 2 (ожидается true): "
+                + product1.equals(product2));
+
+        // Разные артикулы.
+        System.out.println("Товары 1 и 3 (ожидается false): "
+                + product1.equals(product3));
+
+        // Разные категории при одинаковом артикуле.
+        System.out.println("Товары 1 и 4 (ожидается false): "
+                + product1.equals(product4));
+
+        // Одинаковые артикулы и обе категории null.
+        System.out.println("Товары 5 и 6 (ожидается true): "
+                + product5.equals(product6));
+
+        // У одного товара категория null, у другого — строка.
+        Product product7 = new Product(
+                103, "Аксессуар", 1000, "Аксессуары");
+        System.out.println(product7);
+        System.out.println("Товары 5 и 7 (ожидается false): "
+                + product5.equals(product7));
+
+        System.out.println("Сравнение с собой (ожидается true): "
+                + product1.equals(product1));
+
+        System.out.println("Сравнение с null (ожидается false): "
+                + product1.equals(null));
+
+        System.out.println("Сравнение со строкой (ожидается false): "
+                + product1.equals("Смартфон"));
     }
 }
 
@@ -189,5 +173,72 @@ class Order {
     public int hashCode() {
         return 31 * Objects.hashCode(customer)
                 + Arrays.hashCode(basket);
+    }
+
+    public static void main(String[] args) {
+        Product product1 = new Product(
+                101, "Смартфон", 50000, "Электроника");
+        Product product2 = new Product(
+                101, "Другой смартфон", 60000, "Электроника");
+        Product product3 = new Product(
+                102, "Ноутбук", 90000, "Электроника");
+
+        Order order1 = new Order(
+                "Анна", new Product[]{product1, product3});
+        Order order2 = new Order(
+                "Анна", new Product[]{product2, product3});
+        Order order3 = new Order(
+                "Анна", new Product[]{product3, product1});
+        Order order4 = new Order(
+                "Иван", new Product[]{product1, product3});
+        Order order5 = new Order(
+                null, new Product[]{product1, null});
+        Order order6 = new Order(
+                null, new Product[]{product2, null});
+        Order order7 = new Order(null, null);
+        Order order8 = new Order(null, null);
+        Order order9 = new Order(
+                "Анна", new Product[]{product1});
+
+        System.out.println("\nТестирование класса Order:");
+        System.out.println(order1);
+        System.out.println(order2);
+        System.out.println(order3);
+        System.out.println(order4);
+        System.out.println(order5);
+        System.out.println(order6);
+        System.out.println(order7);
+        System.out.println(order8);
+        System.out.println(order9);
+
+        System.out.println("Заказы 1 и 2 (ожидается true): "
+                + order1.equals(order2));
+
+        System.out.println("Заказы 1 и 3 (ожидается false): "
+                + order1.equals(order3));
+
+        System.out.println("Заказы 1 и 4 (ожидается false): "
+                + order1.equals(order4));
+
+        System.out.println("Заказы 5 и 6 (ожидается true): "
+                + order5.equals(order6));
+
+        System.out.println("Заказы 7 и 8 (ожидается true): "
+                + order7.equals(order8));
+
+        System.out.println("Заказы 5 и 7 (ожидается false): "
+                + order5.equals(order7));
+
+        System.out.println("Заказы 1 и 9 (ожидается false): "
+                + order1.equals(order9));
+
+        System.out.println("Сравнение с собой (ожидается true): "
+                + order1.equals(order1));
+
+        System.out.println("Сравнение с null (ожидается false): "
+                + order1.equals(null));
+
+        System.out.println("Сравнение с товаром (ожидается false): "
+                + order1.equals(product1));
     }
 }
